@@ -1,0 +1,20 @@
+from collections import deque
+def valid(m,c,side):
+    return (0<=m<=3 and 0<=c<=3 and (m==0 or m>=c))
+
+def bfs():
+    start = (3,3,1)
+    goal = (0,0,0)
+    q = deque([(start, [])])
+    visited=set()
+    while q:
+        (m,c,b), path = q.popleft()
+        if (m,c,b)==goal:
+            for step in path+[(m,c,b)]:
+                print(step)
+            return
+        for mm,cc in [(1,0),(2,0),(0,1),(0,2),(1,1)]:
+            if b==1: new=(m-mm,c-cc,0)
+            else: new=(m+mm,c+cc,1)
+            if valid(*new): q.append((new,path+[(m,c,b)]))
+bfs()
