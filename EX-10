@@ -1,0 +1,19 @@
+# Simple shortest path using A* idea (no fancy logic)
+graph = {
+    'A': {'B': 1, 'C': 3},
+    'B': {'D': 1},
+    'C': {'D': 1},
+    'D': {}
+}
+
+def astar(start, goal):
+    open_list = [(start, [start])]
+    while open_list:
+        node, path = open_list.pop(0)
+        if node == goal:
+            return path
+        for n in graph[node]:
+            if n not in path:
+                open_list.append((n, path + [n]))
+
+print("Path from A to D:", astar('A', 'D'))
