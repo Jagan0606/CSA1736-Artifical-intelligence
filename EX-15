@@ -1,0 +1,6 @@
+# Decision tree = if-else rules
+age = int(input("Enter your age: "))
+if age < 18:
+    print("Category: Child")
+else:
+    print("Category: Adult")
