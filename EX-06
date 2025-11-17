@@ -1,0 +1,12 @@
+def vacuum(world, pos):
+    print("Initial:", world)
+    if world[pos]=='dirty':
+        world[pos]='clean'
+        print("Cleaned room", pos)
+    pos = 1 - pos
+    if world[pos]=='dirty':
+        world[pos]='clean'
+        print("Cleaned room", pos)
+    print("Final:", world)
+
+vacuum(['dirty','clean'],0)
