@@ -1,0 +1,16 @@
+graph = {
+ 'A': ['B','C'],
+ 'B': ['D','E'],
+ 'C': ['F'],
+ 'D': [], 'E': ['F'], 'F': []
+}
+visited=[]
+def bfs(start):
+    q=[start]
+    while q:
+        node=q.pop(0)
+        if node not in visited:
+            visited.append(node)
+            q.extend(graph[node])
+bfs('A')
+print("BFS:",visited)
