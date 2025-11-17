@@ -1,0 +1,10 @@
+# Just shows how minimax picks max/min
+def minimax(depth, isMax):
+    if depth == 3:
+        return depth
+    if isMax:
+        return max(minimax(depth+1, False), depth)
+    else:
+        return min(minimax(depth+1, True), depth)
+
+print("Result:", minimax(0, True))
