@@ -1,0 +1,50 @@
+# 8_puzzle_a_star.py
+from heapq import heappush, heappop
+
+goal = (1,2,3,4,5,6,7,8,0)
+moves = {0:[1,3],1:[0,2,4],2:[1,5],3:[0,4,6],4:[1,3,5,7],5:[2,4,8],6:[3,7],7:[4,6,8],8:[5,7]}
+
+def manhattan(state):
+    dist = 0
+    for i, v in enumerate(state):
+        if v==0: continue
+        goal_pos = v-1
+        dist += abs(i//3 - goal_pos//3) + abs(i%3 - goal_pos%3)
+    return dist
+
+def neighbors(state):
+    z = state.index(0)
+    for m in moves[z]:
+        s = list(state)
+        s[z], s[m] = s[m], s[z]
+        yield tuple(s)
+
+def a_star(start):
+    open_heap = []
+    g = {start:0}
+    f = manhattan(start)
+    heappush(open_heap, (f, start))
+    came_from = {}
+    while open_heap:
+        _, cur = heappop(open_heap)
+        if cur == goal:
+            path = []
+            while cur in came_from:
+                path.append(cur)
+                cur = came_from[cur]
+            path.append(start)
+            return list(reversed(path))
+        for n in neighbors(cur):
+            tentative = g[cur] + 1
+            if tentative < g.get(n, 1e9):
+                came_from[n] = cur
+                g[n] = tentative
+                heappush(open_heap, (tentative + manhattan(n), n))
+    return None
+
+if __name__ == "__main__":
+    start = (1,2,3,4,0,6,7,5,8)  # sample
+    path = a_star(start)
+    for step in path:
+        print(step[:3], step[3:6], step[6:])
+        print()
