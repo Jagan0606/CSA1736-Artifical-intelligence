@@ -1,0 +1,3 @@
+likes(john, pizza).
+food_lover(X) :- likes(X,_).
+
